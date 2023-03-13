@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+
+
+        // If the length of s is odd, remove the middle character
+        if (s.length() % 2 == 1)
+            s.erase(s.length() / 2, 1);
+
+        // Create two empty strings for the two halves of s
+        string s1 = s.substr(0, s.length() / 2);
+        string s2 = s.substr(s.length() / 2, s.length() / 2);
+
+        // Initialize an array to keep track of the frequency of each character
+        int freq[26];
+        for (int i = 0; i < 26; i++)
+            freq[i] = 0;
+
+        // Update the frequency of each character in the first half
+        for (int i = 0; i < s1.length(); i++)
+            freq[s1[i] - 'a']++;
+
+        // Check if the characters and their frequencies in the second half match
+        // the characters and their frequencies in the first half
+        bool ok = true;
+        for (int i = 0; i < s2.length(); i++) {
+            if (freq[s2[i] - 'a'] == 0) {
+                ok = false;
+                break;
+            }
+            freq[s2[i] - 'a']--;
+        }
+
+        // Print YES if the string is a lapindrome and NO otherwise
+        cout << (ok ? "YES" : "NO") << endl;
+    }
+
+    return 0;
+}
